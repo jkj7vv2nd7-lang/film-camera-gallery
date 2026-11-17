@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>フィルムカメラ みんなの作品ギャラリー</title>
+<meta name="description" content="フィルムカメラPWAで撮られた写真を、フィルム名・レンズ名などのコマ情報と一緒に紹介するギャラリーページです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="フィルムカメラ みんなの作品ギャラリー">
+<meta property="og:description" content="フィルムカメラPWAで撮られた、みんなの作品の紹介ページ">
+<meta property="og:url" content="https://jkj7vv2nd7-lang.github.io/film-camera-gallery/">
+<meta property="og:image" content="https://jkj7vv2nd7-lang.github.io/film-camera-gallery/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+  :root{
+    --bg:#101013; --panel:#1b1b1f; --panel2:#232328; --ink:#ececf0; --sub:#a7a7ae;
+    --line:#34343b; --amber:#e8a33d; --red:#c8402f; --link:#f0b45a;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif; font-size:17px; line-height:1.8; }
+  .wrap{ max-width:760px; margin:0 auto; padding:20px 16px calc(56px + env(safe-area-inset-bottom)); }
+  header{ text-align:center; padding:14px 0 6px; }
+  header img{ width:110px; height:110px; border-radius:24px; }
+  h1{ font-size:1.65rem; margin:10px 0 2px; letter-spacing:.03em; }
+  h1 .accent{ color:var(--amber); }
+  .sub{ color:var(--sub); margin:0 0 6px; font-size:1rem; }
+  section{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px; margin-top:18px; }
+  h2{ font-size:1.25rem; margin:0 0 8px; padding-bottom:6px; border-bottom:2px solid #3a2c17; }
+  h2 .en{ color:var(--amber); font-size:.85rem; margin-left:.5em; letter-spacing:.08em; font-family:Georgia,serif; }
+  .empty{ background:var(--panel2); border:1px dashed #4a4a52; border-radius:12px; padding:14px 16px; }
+  .empty b{ display:block; font-size:1.08rem; margin-bottom:4px; color:var(--amber); }
+  /* フィルムの帯（パーフォレーション付き）で作品を飾る */
+  .strip{ background:#060607; border:1px solid #000; border-radius:8px; padding:12px 10px; margin-top:14px;
+    background-image:radial-gradient(circle, #2c2c31 3.2px, transparent 3.8px), radial-gradient(circle, #2c2c31 3.2px, transparent 3.8px);
+    background-size:26px 10px; background-position:6px 2px, 6px calc(100% - 2px); background-repeat:repeat-x; }
+  .strip .frame{ background:#191920; border-radius:3px; overflow:hidden; }
+  .strip .frame img{ width:100%; display:block; }
+  .strip .placeholder{ aspect-ratio:3/2; display:flex; align-items:center; justify-content:center; color:#6d6d76; font-size:.95rem;
+    background:linear-gradient(135deg,#26262e,#17171c); text-align:center; padding:10px; }
+  .work-meta{ padding:12px 4px 2px; }
+  .work-meta .author{ font-size:1.05rem; font-weight:700; }
+  .work-meta .author span{ color:var(--sub); font-weight:400; font-size:.9rem; }
+  .work-meta .frame-info{ font-family:Georgia,serif; color:var(--amber); font-size:.98rem; letter-spacing:.02em; margin-top:2px; }
+  .work-meta .comment{ margin-top:4px; white-space:pre-wrap; }
+  .sample-note{ color:var(--sub); font-size:.9rem; margin-top:8px; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+  .guide{ margin-top:10px; padding-left:1.4em; }
+  .guide li{ margin:6px 0; }
+  .note-box{ background:var(--panel2); border-radius:12px; padding:12px 16px; margin-top:12px; }
+  .links{ display:grid; gap:12px; margin-top:12px; }
+  .link-card{ display:block; border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--panel2); color:var(--ink); text-decoration:none; }
+  .link-card b{ color:var(--link); font-size:1.06rem; }
+  .link-card span{ display:block; color:var(--sub); font-size:.93rem; margin-top:2px; }
+  .link-card:active{ background:#2c2c33; }
+  footer{ text-align:center; color:var(--sub); font-size:.88rem; margin-top:26px; }
+  a{ color:var(--link); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="icon-192.png" alt="フィルムカメラのアイコン">
+    <h1>フィルムカメラ<br>みんなの<span class="accent">作品ギャラリー</span></h1>
+    <p class="sub">フィルムカメラPWAで撮られた写真を、コマ情報と一緒に紹介するページです</p>
+  </header>
+
+  <section>
+    <h2>作品紹介 <span class="en">WORKS</span></h2>
+    <div id="works-empty" class="empty">
+      <b>最初の作品をお待ちしています</b>
+      フィルムカメラPWAで撮った写真が、ここに並びます。フィルムの帯（パーフォレーション）の額縁に、写真とコマ情報（フィルム名・レンズ名・シャッター速度・絞りなど）と、撮影した方のお名前を添えて紹介します。
+    </div>
+    <div id="works-sample">
+      <div class="strip">
+        <div class="frame"><div class="placeholder">ここに写真が入ります</div></div>
+      </div>
+      <div class="work-meta">
+        <div class="author">撮影：◯◯さん <span>（ハンドルネーム）</span></div>
+        <div class="frame-info">Portra 400 ・ Ural 58mm F2.0 ・ 1/125 ・ f/2 ・ ISO 400</div>
+      </div>
+      <p class="sample-note">※ これは掲載イメージの見本です。ぐるぐるボケの名玉「Ural」で花を撮った、という想定で書いています。</p>
+    </div>
+    <div id="works-grid" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>応募のしかた <span class="en">HOW TO JOIN</span></h2>
+    <p>フィルムカメラPWAで撮った写真なら、どなたでも大歓迎です。</p>
+    <ol class="guide">
+      <li>紹介記事（note）のコメント欄に、写真を添えて送ってください。</li>
+      <li>または、Threads（<b>@leica432</b>）の投稿への返信で、写真を送ってください。</li>
+      <li>できれば、現像室のコマ情報（フィルム名・レンズ名・シャッター速度・絞り）も一緒に書いてください。そのまま添えて紹介します。</li>
+    </ol>
+    <div class="note-box">
+      <p style="margin:0">送っていただいた写真は、このページで紹介させていただきます。お名前は、送ってくださった表記のまま載せます。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>リンク <span class="en">LINKS</span></h2>
+    <div class="links">
+      <a class="link-card" href="https://jkj7vv2nd7-lang.github.io/film-camera/">
+        <b>フィルムカメラPWA（アプリ本体）</b>
+        <span>名玉レンズ6本とフィルム9銘柄で撮る、フィルムカメラの体験アプリ</span>
+      </a>
+      <a class="link-card" href="https://note.com/novel_violet9394/n/na43209216487">
+        <b>紹介記事（note）</b>
+        <span>アプリの紹介記事です。応募はこちらのコメント欄からもどうぞ</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>レンズの名前は、実在の名玉への敬意を込めたオマージュ名称です。<br>フィルムカメラ みんなの作品ギャラリー</p>
+  </footer>
+
+</div>
+
+<script>
+/* ==== 作品データ ====
+   応募が届いたら、写真を img/ に置いて、works に1件追加します。
+   例：{ img: "img/work-001.jpg", author: "ハンドル名", film: "Portra 400", lens: "Ural 58mm F2.0", ss: "1/125", ap: "f/2", iso: 400, comment: "ひとこと（任意）" }
+*/
+const GALLERY = {
+  works: []
+};
+
+function frameInfo(w) {
+  const parts = [];
+  if (w.film) parts.push(w.film);
+  if (w.lens) parts.push(w.lens);
+  if (w.ss) parts.push(w.ss);
+  if (w.ap) parts.push(w.ap);
+  if (w.iso) parts.push("ISO " + w.iso);
+  return parts.join(" ・ ");
+}
+
+function renderWorks() {
+  const grid = document.getElementById("works-grid");
+  const empty = document.getElementById("works-empty");
+  const sample = document.getElementById("works-sample");
+  if (!GALLERY.works.length) return; /* 応募がなければ、空のお知らせと見本を表示 */
+  empty.style.display = "none";
+  sample.style.display = "none";
+  for (const w of GALLERY.works) {
+    const card = document.createElement("div");
+    const strip = document.createElement("div");
+    strip.className = "strip";
+    const frame = document.createElement("div");
+    frame.className = "frame";
+    const img = document.createElement("img");
+    img.src = w.img;
+    img.alt = (w.author || "") + "さんの作品";
+    img.loading = "lazy";
+    frame.appendChild(img);
+    strip.appendChild(frame);
+    const meta = document.createElement("div");
+    meta.className = "work-meta";
+    const author = document.createElement("div");
+    author.className = "author";
+    author.textContent = "撮影：" + (w.author || "—") + "さん";
+    meta.appendChild(author);
+    const info = frameInfo(w);
+    if (info) {
+      const fi = document.createElement("div");
+      fi.className = "frame-info";
+      fi.textContent = info;
+      meta.appendChild(fi);
+    }
+    if (w.comment) {
+      const c = document.createElement("div");
+      c.className = "comment";
+      c.textContent = w.comment;
+      meta.appendChild(c);
+    }
+    card.appendChild(strip);
+    card.appendChild(meta);
+    grid.appendChild(card);
+  }
+}
+renderWorks();
+</script>
+</body>
+</html>
